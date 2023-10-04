@@ -32,3 +32,50 @@ function speak(){
     var utterthis = new SpeechSynthesisUtterance(speakdata1 + speakdata2);
     synth.speak(utterthis);
 }
+
+function check(){
+    var img = document.getElementById("taken_img");
+    classifier.classify(img, gotresult);
+}
+
+function gotresult(error,result){
+    if(error){
+        consol.log(error);
+    }
+
+    else{
+        console.log(result);
+        document.getElementById("result_emotion_name").innerHTML = result[0].label;
+        document.getElementById("result_emotion_name2").innerHTML = result[1].label;
+
+         prediction1 = result[0].label;
+         prediction2 = result[1].label;
+
+         speak();
+
+         if(prediction1 == "All The Best"){
+            document.getElementById("update_emoji").innerHTML = "&#128077";
+         }
+
+         if(prediction1 == "Victory"){
+            document.getElementById("update_emoji").innerHTML = "&#9996";
+         }
+
+         if(prediction1 == "Amazing"){
+            document.getElementById("update_emoji").innerHTML = "&#128076";
+         }
+
+         if(prediction2 == "All The Best"){
+            document.getElementById("update_emoji2").innerHTML = "&#128077";
+         }
+
+         if(prediction2 == "Victory"){
+            document.getElementById("update_emoji2").innerHTML = "&#9996";
+         }
+
+         if(prediction2 == "Amazing"){
+            document.getElementById("update_emoji2").innerHTML = "&#128076";
+         }
+
+    }
+}
